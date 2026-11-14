@@ -43,9 +43,11 @@ describe('the built site', { skip: !existsSync(new URL('../dist/index.html', imp
       assert.ok(!html.includes(`>${french}<`), french)
   })
 
-  it('leads every « Connexion » to the app', () => {
+  // On #/sign-in, past the public home page that sends a first visit at the app's bare address back here.
+  it('leads every « Connexion » to the app’s sign-in page', () => {
     const html = page('index.html')
     assert.ok(!html.includes('href="#login"'))
-    assert.ok(html.includes('href="https://app.get-hodi.com/"'))
+    assert.ok(!html.includes('href="https://app.get-hodi.com/"'))
+    assert.ok(html.includes('href="https://app.get-hodi.com/#/sign-in"'))
   })
 })
