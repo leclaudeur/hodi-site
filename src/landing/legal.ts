@@ -32,7 +32,7 @@ export const LEGAL_UI = {
 } as const
 
 // The day the texts themselves last changed: the page shows it, or the day the admin changed who runs the server.
-export const TEXTS_UPDATED = '2026-11-12'
+export const TEXTS_UPDATED = '2026-11-14'
 export const lastUpdate = (operatorUpdated: string | null | undefined) =>
   operatorUpdated && operatorUpdated > TEXTS_UPDATED ? operatorUpdated : TEXTS_UPDATED
 
