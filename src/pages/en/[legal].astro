@@ -1,0 +1,10 @@
+---
+import Page from '../../layouts/Page.astro'
+import { LEGAL_IDS, type LegalId } from '../../landing/routes.ts'
+
+export const getStaticPaths = () => LEGAL_IDS.map(legal => ({ params: { legal } }))
+
+const legal = Astro.params.legal as LegalId
+---
+
+<Page lang="en" legal={legal} />

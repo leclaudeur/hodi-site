@@ -1,0 +1,24 @@
+html,body{overflow-x:hidden}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
+.demo-intro{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none}
+.demo-intro>button{pointer-events:auto;scale:calc(1/var(--demo-k,1))}
+.demo-spot{--d:max(14px,calc(10px/var(--demo-k,1)));position:fixed;width:var(--d);height:var(--d);translate:-50% -50%;padding:0;border:2px solid var(--card);border-radius:50%;background:var(--rust);box-shadow:0 2px 10px var(--shadow);cursor:pointer;pointer-events:auto}
+.demo-spot{animation:demo-pulse 2.2s var(--ease) infinite}
+.demo-spot.open{animation:none}
+@keyframes demo-pulse{0%{box-shadow:0 2px 10px var(--shadow),0 0 0 0 color-mix(in srgb,var(--rust) 60%,transparent)}80%,100%{box-shadow:0 2px 10px var(--shadow),0 0 0 calc(var(--d)*.75) color-mix(in srgb,var(--rust) 0%,transparent)}}
+.demo-shade{position:fixed;inset:0;background:var(--grain),color-mix(in srgb,var(--scrim) 55%,transparent);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);pointer-events:auto}
+:root[data-theme=dark] .demo-shade,:root[data-theme=powder] .demo-shade{background:var(--grain),color-mix(in srgb,var(--scrim) 75%,transparent)}
+.demo-tip .demo-close{margin-left:auto}
+dialog.demo-still,dialog.demo-still::backdrop{animation:none!important;transition:none!important}
+*,html,body{overscroll-behavior:auto!important}
+[data-demo-close],[data-demo-close] *{pointer-events:auto;cursor:pointer!important}
+[class*=_initial_]{translate:0 .035em}
+[data-demo-tour] ._ahead_14zxf_132{gap:8px}[data-demo-tour] ._count_14zxf_113{margin-right:8px}
+:where(body *:not([data-demo-tour],[data-demo-tour] *,.demo-finger)){pointer-events:none}
+:where([data-go],[data-go] *,[data-submit] *,[data-scrolls]){pointer-events:auto}
+*{cursor:default!important}
+[data-go],[data-go] *,[data-submit] button,[data-submit] button *,[data-demo-tour] button,[data-demo-tour] button *,.demo-spot{cursor:pointer!important}
+.demo-finger{--f:calc(46px/var(--demo-k,1));position:fixed;z-index:1001;left:0;top:0;width:var(--f);height:var(--f);margin:calc(var(--f)/-2) 0 0 calc(var(--f)/-2);border-radius:50%;pointer-events:none;background:color-mix(in srgb,var(--text) 22%,transparent);border:2px solid color-mix(in srgb,var(--text) 55%,transparent);box-shadow:0 6px 20px var(--shadow);opacity:0;transition:translate .55s var(--ease),opacity .3s var(--ease),scale .18s var(--ease)}
+.demo-finger.on{opacity:1}
+.demo-finger.press{scale:.78}
+.demo-block{position:fixed;inset:0;z-index:1000;pointer-events:auto}
