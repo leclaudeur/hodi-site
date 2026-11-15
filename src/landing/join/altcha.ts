@@ -1,7 +1,7 @@
 import { sha256 } from '@noble/hashes/sha2.js'
 import { base64, hex, utf8 } from '@scure/base'
 
-// The site's side of ALTCHA (Village's server/altcha.ts): find the number behind the challenge's hash, then send the payload
+// The site's side of ALTCHA (the server's altcha.ts): find the number behind the challenge's hash, then send the payload
 // as ALTCHA's own widget does. SHA-256 comes from @noble/hashes: it runs in the page, with no wait for crypto.subtle.
 export interface Challenge {
   algorithm: string

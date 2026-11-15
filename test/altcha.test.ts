@@ -8,14 +8,14 @@ const challengeFor = (number: number) => {
   const challenge = createHash('sha256')
     .update(salt + number)
     .digest('hex')
-  return { algorithm: 'SHA-256', challenge, maxnumber: 10_000, salt, signature: 'signed-by-village' }
+  return { algorithm: 'SHA-256', challenge, maxnumber: 10_000, salt, signature: 'signed-by-server' }
 }
 
 describe('the bot check', () => {
   it('finds the number behind the hash and sends it as ALTCHA does', async () => {
     const payload = JSON.parse(Buffer.from(await solveChallenge(challengeFor(4321)), 'base64').toString('utf8'))
     assert.equal(payload.number, 4321)
-    assert.equal(payload.signature, 'signed-by-village')
+    assert.equal(payload.signature, 'signed-by-server')
     assert.equal(typeof payload.took, 'number')
   })
 

@@ -3,7 +3,7 @@
 Instructions for AI coding agents working on Hodi's public website. Read `README.md` first: it explains the folders,
 how a page is written and the deployment.
 
-- The site is static: Astro writes HTML into `dist/`, nginx serves it and sends only Village's public routes on to
+- The site is static: Astro writes HTML into `dist/`, nginx serves it and sends only Hodi's sign-up routes on to
   Hodi. Add JavaScript only for what HTML and CSS cannot do. No framework in a page.
 - The look is Hodi's: its tokens, fonts and components, copied into `src/landing/landing.css`. Never hard-code a colour.
 - French is the reference and says « tu ». Every new text of `src/landing/markup.html` gets its English line in

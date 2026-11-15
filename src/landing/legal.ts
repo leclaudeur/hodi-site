@@ -55,7 +55,7 @@ export const legalPage = (lang: Lang, id: LegalId, info: LegalInfo) => {
     year: 'numeric',
     timeZone: 'UTC'
   })
-  // Until the server's admin fills them in (Serveur › Village › Pages légales), the blanks say so.
+  // Until the server's admin fills them in (in Hodi's server settings), the blanks say so.
   const blank = BLANKS[lang]
   const email = info.email ? `<a href="mailto:${escape(info.email)}">${escape(info.email)}</a>` : escape(blank.email)
   const values: Record<string, string> = {

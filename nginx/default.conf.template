@@ -1,4 +1,4 @@
-# The site is static files (Astro wrote one per page: /legal is legal.html), plus one door to Hodi: Village's public
+# The site is static files (Astro wrote one per page: /legal is legal.html), plus one door to Hodi: its sign-up
 # routes, which the sign-up forms call on the site's own address. nginx's image fills in ${HODI_URL} at start.
 server {
   listen 80;
@@ -38,7 +38,7 @@ server {
     add_header Referrer-Policy strict-origin-when-cross-origin always;
   }
 
-  # Village's public routes, on Hodi: same origin for the browser, so no CORS and Hodi's Sec-Fetch-Site check passes.
+  # Hodi's sign-up routes: same origin for the browser, so no CORS and Hodi's Sec-Fetch-Site check passes.
   # Docker's resolver finds Hodi at each request: the site starts even while Hodi is down.
   location ^~ /api/public/plugins/village/ {
     resolver 127.0.0.11 valid=30s ipv6=off;

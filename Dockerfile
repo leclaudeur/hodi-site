@@ -14,7 +14,7 @@ COPY . .
 RUN npm run build
 
 # ==========================================
-# Runtime stage: nginx serves the pages as plain files, and sends Village's public routes on to Hodi.
+# Runtime stage: nginx serves the pages as plain files, and sends Hodi's sign-up routes on to Hodi.
 # ==========================================
 FROM nginx:1.30-alpine
 

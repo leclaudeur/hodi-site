@@ -734,8 +734,8 @@ footer .end { margin-left: auto; }
 .site .ln.w94 { width: 94%; } .site .ln.w88 { width: 88%; } .site .ln.w72 { width: 72%; } .site .ln.w90 { width: 90%; }
 .site .ln.w80 { width: 80%; } .site .ln.w86 { width: 86%; } .site .ln.w60 { width: 60%; }
 
-/* ---- Village: the join section with the app's own pieces (UI thread, 2026-11-09). Titles as the other sections'
-   h2, StatusLine for what failed, a square check (Antho: round reads as a radio button) in a settings card, ui/Notice (in the green of accepted
+/* ---- The join section with the app's own pieces. Titles as the other sections'
+   h2, StatusLine for what failed, a square check in a settings card, ui/Notice (in the green of accepted
    answers) for what worked, a neutral « Se connecter » button where no form shows, an icon link under a form. */
 .final .title { font-size: clamp(48px, 6.4vw, 84px); }
 .hl-body[data-signup="invite"] .final [data-when~="invite"] { display: flex; }
