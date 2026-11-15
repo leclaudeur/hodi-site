@@ -495,12 +495,16 @@
   function renderIntro(layer) {
     layer.append(el('div', `${T.pane} demo-shade`))
     const middle = el('div', 'demo-intro')
-    middle.append(
-      button(T.primary, W('Commencer la visite', 'Start the tour'), () => {
-        tour.mode = 'tour'
-        goStep(0)
-      })
-    )
+    const start = () => {
+      tour.mode = 'tour'
+      goStep(0)
+    }
+    middle.append(button(T.primary, W('Commencer la visite', 'Start the tour'), start))
+    // The whole veiled screen starts the tour, not only its button.
+    middle.addEventListener('click', event => {
+      event.preventDefault()
+      start()
+    })
     layer.append(middle)
   }
 
