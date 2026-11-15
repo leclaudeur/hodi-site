@@ -67,6 +67,16 @@ server {
     try_files $uri $uri.html $uri/ =404;
   }
 
+  # An unknown address under /en gets the English 404.
+  location /en/ {
+    add_header Cache-Control "no-cache";
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+    add_header X-Frame-Options DENY always;
+    try_files $uri $uri.html $uri/ =404;
+    error_page 404 /en/404.html;
+  }
+
   # The older address of a page with a slash: the same page, without it.
   location ~ ^(.+)/$ {
     return 301 $1;
