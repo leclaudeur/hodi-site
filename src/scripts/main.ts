@@ -32,6 +32,10 @@ const mountLanguage = (page: Page) => {
   })
 }
 
+// A reload starts at the top, as a first visit does: the browser's own restoring put it at the old height before the
+// demos had their size, so it landed lower down. An address with a section (#features) still goes there.
+history.scrollRestoration = 'manual'
+
 const off = new AbortController()
 const page = pageOf(document, { base: '/landing/' }, off.signal)
 

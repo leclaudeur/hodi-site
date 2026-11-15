@@ -31,7 +31,15 @@ server {
     add_header Referrer-Policy strict-origin-when-cross-origin always;
   }
 
-  # The demos, fonts and pictures change only with a deploy: a day, then the browser asks again.
+  # The demos' pages, scripts and styles keep their name from one deploy to the next: the browser asks again each time
+  # and gets 304 when nothing moved, so a fix shows at the next reload.
+  location ~ ^/landing/.*\.(html|js|css)$ {
+    add_header Cache-Control "no-cache";
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+  }
+
+  # The demos' pictures and the fonts change only with a deploy: a day, then the browser asks again.
   location ~ ^/(landing|fonts)/ {
     add_header Cache-Control "public, max-age=86400";
     add_header X-Content-Type-Options nosniff always;
