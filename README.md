@@ -16,7 +16,7 @@ What Hodi does, live demos, the legal pages and the way in.
 ## Intro
 
 The site is static pages, served by nginx beside Hodi.\
-Its forms talk to the [Village](https://github.com/leclaudeur/hodi-plugin-village) plugin through the site's own address.\
+Its forms talk to Hodi's sign-up routes through the site's own address.\
 The app itself lives at `app.get-hodi.com`.
 
 - ⚡ Fast - _every page is built ahead by [Astro](https://astro.build)_
@@ -34,26 +34,41 @@ npm ci
 npm run dev    # → http://localhost:4321/
 ```
 
-The forms need Hodi with Village behind `/api/public/plugins/village/`.\
+The forms need a Hodi that takes sign-ups behind the site.\
 Without it, the page shows only the sign-in link.
 
 ## How it works
 
 ```text
-src/pages/      one file per address
-src/landing/    the landing: markup, styles, scripts
-public/landing/ the demos
-nginx/          the server's configuration
+src/
+  pages/              one file per address, in French and English
+  layouts/Page.astro  each page's <head>: title, description, links
+  lib/render.ts       the landing's markup for one address
+  landing/            the landing: markup, styles, English texts
+  landing/join/       the sign-up steps and the waiting list
+  scripts/main.ts     the page's one script
+public/landing/       the demos: the app's screens and their files
+nginx/                the server's configuration
 ```
 
 French is the reference.\
 At build time, the English page swaps each text for its line in [`src/landing/en.json`](src/landing/en.json).
 
-The site sends only Village's public routes on to Hodi:
+The site sends only Hodi's sign-up routes on to Hodi:
 
-```text
-visitor ─▶ site ─▶ /api/public/plugins/village/… ─▶ Hodi
-                └▶ anything else: a static page
+```mermaid
+flowchart LR
+  visitor["Visitor"] --> proxy["Reverse proxy<br>HTTPS"]
+  subgraph Site["Site container"]
+    nginx["nginx"]
+    pages["Static pages<br>written by Astro"]
+  end
+  hodi["Hodi"]
+
+  proxy -- "get-hodi.com" --> nginx
+  nginx -- "every page" --> pages
+  nginx -- "sign-up routes" --> hodi
+  proxy -- "app.get-hodi.com" --> hodi
 ```
 
 For the browser, both share one address, so there is no CORS.
@@ -67,7 +82,7 @@ Each merge builds the image `ghcr.io/leclaudeur/hodi-site`, which Portainer runs
 2. **Add the service**: paste [compose.yml](compose.yml)'s `site` into Hodi's stack.
 3. **Point to Hodi**: `HODI_URL` is Hodi's address on that network (`http://app:3000`).
 4. **Point the domains**: `get-hodi.com` to `SITE_PORT`, `app.get-hodi.com` to Hodi.
-5. **Tell Village**: set _Server › Village › Sign-ups › Site address_ to `https://get-hodi.com`.
+5. **Tell Hodi**: give its sign-up settings the site's address, `https://get-hodi.com`.
 
 After each merge, open the stack and click **Pull and redeploy**.
 
