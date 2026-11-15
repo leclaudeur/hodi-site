@@ -1,7 +1,7 @@
 /* Hodi's own tokens (web/src/styles/tokens.css): Sombre by default, Clair and Poudré by data-theme, the system's
    light when nothing is chosen. The page wears the theme the app would, so both feel like one site. */
 .hl, .hl[data-theme="dark"] {
-  --danger: #c66a5f;
+  --danger: #c66a5f; --destructive: #3a1c18; --destructive-border: #c66a5f; --destructive-text: #ffd8d1;
   color-scheme: dark;
   --bg: #0f0f10; --column: #131314; --card: #161617; --control: #1d1d1f; --control-hover: #1f1f21; --card-hover: #1c1c1e; --raised: #2a2a2d; --tile: #1a1a1c;
   --border: #2e2e31; --divider: #262628; --border-strong: #3a3a3e;
@@ -26,7 +26,7 @@
   --topic-voyage: #5ea6d6; --topic-voyage-border: #2c4150; --topic-voyage-surface: #1c2225;
 }
 .hl[data-theme="light"] {
-  --danger: #884d43;
+  --danger: #884d43; --destructive: #f6e0db; --destructive-border: #b4574a; --destructive-text: #7a2c22;
   color-scheme: light;
   --bg: #fbf8f2; --column: #f3eee4; --card: #fbf8f2; --control: #ece5d8; --control-hover: #e8e0d2; --card-hover: #ebe4d6; --raised: #e3dacb; --tile: #efe9dd;
   --border: #d8cdbb; --divider: #e3dacb; --border-strong: #cbbfac;
@@ -799,7 +799,9 @@ footer .end { margin-left: auto; }
 .final .join-form.stack > .field + .join-msg + .field, .final .join-form.stack > .field + .field { margin-top: 10px; }
 .final .join-form.stack > .btn, .final .join-form.pins > .btn { margin-top: 18px; width: 100%; }
 .join-form .field:focus-within { border-color: var(--rust-border); }
-.join-form .field.bad, .join-form .field.bad:focus-within { border-color: var(--danger); }
+/* As the app's fields: a wrong one wears the danger colours, border, background and text. */
+.join-form .field.bad, .join-form .field.bad:focus-within { border-color: var(--destructive-border); background: var(--destructive); color: var(--destructive-text); }
+.join-form .field.bad input, .join-form .field.bad svg { color: var(--destructive-text); }
 .join-card { margin-top: 12px; padding: 0 14px; border: 1px solid var(--border); border-radius: 16px; background: var(--card); }
 .join-msg { display: flex; align-items: flex-start; gap: 8px; margin: 10px 0 0; padding-left: 17px; color: var(--text-3); font-size: 13px; line-height: 1.5; text-align: left; }
 .join-msg[hidden] { display: none !important; }
