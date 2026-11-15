@@ -1,7 +1,9 @@
 html,body{overflow-x:hidden}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.22s}
-.demo-intro{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none}
+.demo-intro{position:fixed;inset:0;display:grid;place-items:center;pointer-events:auto;cursor:pointer}
 .demo-intro>button{pointer-events:auto;scale:calc(1/var(--demo-k,1))}
+/* The app's press (scale .97) would replace the button's own scale: it shrinks from its landing size instead. */
+.demo-intro>button:not(:disabled):active{scale:calc(.97/var(--demo-k,1))}
 .demo-spot{--d:max(14px,calc(10px/var(--demo-k,1)));position:fixed;width:var(--d);height:var(--d);translate:-50% -50%;padding:0;border:2px solid var(--card);border-radius:50%;background:var(--rust);box-shadow:0 2px 10px var(--shadow);cursor:pointer;pointer-events:auto}
 .demo-spot{animation:demo-pulse 2.2s var(--ease) infinite}
 .demo-spot.open{animation:none}
