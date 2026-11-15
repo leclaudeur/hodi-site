@@ -88,7 +88,8 @@
 * { box-sizing: border-box; }
 /* Clip, not hidden: the glows spill past the frame without a sideways scroll, and the menu stays sticky. */
 .hl { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; }
-main { overflow-x: clip; }
+/* The page never scrolls sideways nor past its footer, whatever colours spill from a section. */
+main { overflow: clip; }
 @media (prefers-reduced-motion: reduce) { .hl { scroll-behavior: auto; } }
 .hl-body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; overflow-x: clip; transition: background-color 280ms var(--ease), color 280ms var(--ease); }
 a { color: inherit; }
@@ -527,7 +528,8 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 @media (max-width: 900px) { .faq-wrap { grid-template-columns: minmax(0, 1fr); } .faq-wrap .sec-head { position: static; } }
 
 /* ---- Join: the app's field and button, the same height side by side. ---- */
-.final { position: relative; overflow-x: visible; overflow-y: clip; text-align: center; }
+/* Its colours spill over the section above, as the hero's do under the header. */
+.final { position: relative; text-align: center; }
 .final .blobs { top: auto; bottom: -40%; height: 700px; -webkit-mask-image: none; mask-image: none; }
 .final > :not(.blobs) { position: relative; }
 .final .title { font-size: clamp(52px, 7vw, 100px); }
