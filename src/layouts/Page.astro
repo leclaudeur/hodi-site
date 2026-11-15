@@ -20,12 +20,11 @@ const HOME = {
   fr: {
     title: 'Hodi · L’actu de toute la maison',
     description:
-      'Hodi rassemble les sites d’info que tu préfères, rangés par thème, et les ouvre dans un lecteur sans pub ni pistage. Gratuit, libre et open source.'
+      'Tes sites d’info préférés, rangés par thème et lus sans pub ni pistage. Gratuit, libre et open source.'
   },
   en: {
     title: 'Hodi · News for the whole home',
-    description:
-      'Hodi brings together your favourite news sites, sorted by topic, and opens them in a reader with no ads or tracking. Free and open source.'
+    description: 'Your favourite news sites, sorted by topic and read with no ads or tracking. Free and open source.'
   }
 }
 const LEGAL = {
@@ -106,7 +105,7 @@ const legalPaths = LEGAL_IDS.map(id => pathOf({ lang, legal: id }))
   <body
     class:list={['hl-body', { 'legal-mode': legal, 'lost-mode': notFound }]}
     data-signup="open"
-    data-cta="open"
+    data-cta="none"
     set:html={body}
   />
   <script>

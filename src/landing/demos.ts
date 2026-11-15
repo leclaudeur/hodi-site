@@ -15,8 +15,9 @@ const fitDemos = (page: Page) => {
     iframe.height = String(h)
     const fit = () => {
       const k = box.clientWidth / w
+      // The box keeps its height from its aspect-ratio (set when the page is built): setting it here too would
+      // shrink the box a little at each resize, its border taken off its width each time.
       iframe.style.transform = `scale(${k})`
-      box.style.height = `${h * k}px`
       // The demo keeps its hotspots and start button readable whatever the scale.
       iframe.contentWindow?.postMessage({ scale: k }, '*')
     }
