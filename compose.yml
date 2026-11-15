@@ -1,0 +1,11 @@
+# The site's service, for the Portainer stack that runs Hodi: add it beside Hodi's own service, on the same network.
+# HODI_URL is Hodi's address on that network (its service name and port 3000). Behind the reverse proxy, point
+# <domain> at SITE_PORT and app.<domain> at Hodi.
+services:
+  site:
+    image: ghcr.io/leclaudeur/hodi-site:latest
+    restart: unless-stopped
+    environment:
+      HODI_URL: '${HODI_URL:-http://app:3000}'
+    ports:
+      - '${SITE_PORT:-8080}:80'

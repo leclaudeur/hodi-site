@@ -1,0 +1,7 @@
+dist/
+.astro/
+package-lock.json
+public/landing/
+src/landing/markup.html
+src/landing/landing.css
+src/landing/fonts.css

@@ -1,0 +1,104 @@
+---
+import '../landing/fonts.css'
+import '../landing/landing.css'
+import geist from '../../public/fonts/geist-latin.woff2?url'
+import { pathOf, type Lang, type LegalId, LEGAL_IDS } from '../landing/routes.ts'
+import { renderPage } from '../lib/render.ts'
+import { SITE_URL } from '../lib/site.ts'
+
+interface Props {
+  lang: Lang
+  legal: LegalId | null
+  // The page nginx shows for an unknown address: the landing, kept out of search engines.
+  notFound?: boolean
+}
+
+const { lang, legal, notFound = false } = Astro.props
+const { body, legalTitle } = renderPage(lang, legal)
+
+const HOME = {
+  fr: {
+    title: 'Hodi · L’actu de toute la maison',
+    description:
+      'Hodi rassemble les sites d’info que tu préfères, rangés par thème, et les ouvre dans un lecteur sans pub ni pistage. Gratuit, libre et open source.'
+  },
+  en: {
+    title: 'Hodi · News for the whole home',
+    description:
+      'Hodi brings together your favourite news sites, sorted by topic, and opens them in a reader with no ads or tracking. Free and open source.'
+  }
+}
+const LEGAL = {
+  fr: {
+    legal: 'Qui fait tourner ce serveur Hodi, où il est hébergé et comment écrire à son exploitant.',
+    privacy:
+      'Ce que Hodi garde sur toi et sur le foyer, pourquoi, combien de temps, et comment tout récupérer ou tout effacer.',
+    terms: 'Les règles pour utiliser Hodi sur ce serveur : le compte, le foyer et ce que chacun s’engage à faire.'
+  },
+  en: {
+    legal: 'Who runs this Hodi server, where it is hosted and how to write to its operator.',
+    privacy: 'What Hodi keeps about you and your household, why, for how long, and how to get it all back or erase it.',
+    terms: 'The rules for using Hodi on this server: your account, your household and what everyone agrees to do.'
+  }
+}
+
+const title = legal ? `${legalTitle} · Hodi` : HOME[lang].title
+const description = legal ? LEGAL[lang][legal] : HOME[lang].description
+const url = (to: Lang) => SITE_URL + pathOf({ lang: to, legal })
+const other: Lang = lang === 'fr' ? 'en' : 'fr'
+const ogImage = `${SITE_URL}/share-${lang}.png`
+// Every page of the other language, for the language buttons.
+const switchTo = pathOf({ lang: other, legal })
+const legalPaths = LEGAL_IDS.map(id => pathOf({ lang, legal: id }))
+---
+
+<!doctype html>
+<html lang={lang} class="hl" data-theme="dark" data-switch={switchTo} data-legal-paths={legalPaths.join(' ')}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {notFound && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={url(lang)} />
+    <link rel="alternate" hreflang="fr" href={url('fr')} />
+    <link rel="alternate" hreflang="en" href={url('en')} />
+    <link rel="alternate" hreflang="x-default" href={url('fr')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hodi" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url(lang)} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_BE' : 'en_GB'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0f0f10" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" href={geist} as="font" type="font/woff2" crossorigin />
+    <!-- Before the first paint: the theme picked on an earlier visit (or the system's), and English for a visitor who
+         chose it, so nothing flashes. -->
+    <script is:inline>
+      ;(() => {
+        const read = key => {
+          try {
+            return localStorage.getItem(key)
+          } catch {
+            return null
+          }
+        }
+        if (location.pathname === '/' && read('hodi-landing-lang') === 'en') location.replace('/en' + location.hash)
+        const stored = read('hodi-landing-theme')
+        const theme =
+          stored === 'poudre'
+            ? 'powder'
+            : stored || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
+        document.documentElement.dataset.theme = theme
+      })()
+    </script>
+  </head>
+  <body class={legal ? 'hl-body legal-mode' : 'hl-body'} data-signup="open" data-cta="open" set:html={body} />
+  <script>
+    import '../scripts/main.ts'
+  </script>
+</html>
