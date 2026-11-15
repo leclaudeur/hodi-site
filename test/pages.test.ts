@@ -50,4 +50,18 @@ describe('the built site', { skip: !existsSync(new URL('../dist/index.html', imp
     assert.ok(!html.includes('href="https://app.get-hodi.com/"'))
     assert.ok(html.includes('href="https://app.get-hodi.com/#/sign-in"'))
   })
+
+  it('writes the 404 in each language, alone, out of search engines', () => {
+    for (const [file, text] of [
+      ['404.html', 'Cette page n’existe pas, ou plus'],
+      ['en/404.html', 'This page doesn’t exist']
+    ] as const) {
+      const html = page(file)
+      assert.match(html, /class="hl-body lost-mode"/, file)
+      assert.ok(html.includes('<meta name="robots" content="noindex">'), file)
+      assert.ok(html.includes(text), file)
+      assert.ok(html.includes('<h1 class="lost-title">'), file)
+    }
+    assert.ok(!page('index.html').includes('lost-view'))
+  })
 })

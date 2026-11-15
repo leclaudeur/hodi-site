@@ -86,14 +86,14 @@ const fillLegal = (body: Element, lang: Lang, id: LegalId) => {
   return shown.label
 }
 
-// Links lead to the page's own language; a section's link from a legal page goes back to the landing.
-const fixLinks = (body: Element, lang: Lang, legal: LegalId | null) => {
+// Links lead to the page's own language; a section's link from a legal page or the 404 goes back to the landing.
+const fixLinks = (body: Element, lang: Lang, away: boolean) => {
   const home = pathOf({ lang, legal: null })
   body.querySelectorAll('a[href]').forEach(a => {
     const href = a.getAttribute('href') ?? ''
     const id = LEGAL_IDS.find(page => href === `/${page}`)
     if (id) a.setAttribute('href', pathOf({ lang, legal: id }))
-    else if (href.startsWith('#') && legal) a.setAttribute('href', href === '#top' ? home : home + href)
+    else if (href.startsWith('#') && away) a.setAttribute('href', href === '#top' ? home : home + href)
   })
 }
 
@@ -102,7 +102,7 @@ export interface Rendered {
   legalTitle: string | null
 }
 
-export const renderPage = (lang: Lang, legal: LegalId | null): Rendered => {
+export const renderPage = (lang: Lang, legal: LegalId | null, notFound = false): Rendered => {
   const { document } = parseHTML(`<!doctype html><html><body class="hl-body">${markup}</body></html>`)
   const body = document.body
   const faq = body.querySelector('#faq')
@@ -113,6 +113,8 @@ export const renderPage = (lang: Lang, legal: LegalId | null): Rendered => {
   })
   if (lang === 'en') translate(body)
   const legalTitle = legal ? fillLegal(body, lang, legal) : null
-  fixLinks(body, lang, legal)
+  // Only the 404 pages keep their view: the others have one h1 each.
+  if (!notFound) body.querySelector('#lost-view')?.remove()
+  fixLinks(body, lang, legal !== null || notFound)
   return { body: body.innerHTML, legalTitle }
 }

@@ -369,6 +369,20 @@
       <div class="join-link" data-when="code" id="join-resend"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg><span>Renvoyer le code</span></a></div>
     </section>
 
+    <!-- The page for an unknown address, shown alone, as the app's own 404. Only the 404 pages keep it. -->
+    <section class="lost-view" id="lost-view">
+      <div class="lost-in" role="alert">
+        <p class="lost-code" aria-hidden="true">404<span class="dot"></span></p>
+        <h1 class="lost-title">Cette page n’existe pas, ou plus</h1>
+        <p class="lost-text">Le lien est peut-être cassé, ou la page a changé d’adresse.</p>
+        <div class="lost-actions">
+          <a class="btn primary" href="#top">Retour à l’accueil</a>
+          <a class="btn" href="https://app.get-hodi.com/#/sign-in">Ouvrir Hodi</a>
+        </div>
+        <p class="lost-path"><span>ERREUR 404</span><span data-lost-path="">/</span></p>
+      </div>
+    </section>
+
     <!-- Legal pages: shown alone at /legal, /privacy and /terms. The layout is the SDK docs': a sidebar on a computer,
          a bar with the pages in a panel on a tablet and a phone. -->
     <section class="legal-view pad" id="legal-view" data-no-i18n="">

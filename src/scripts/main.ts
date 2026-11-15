@@ -39,6 +39,10 @@ const page = pageOf(document, { base: '/landing/' }, off.signal)
 const legacy = legacyLegalOf(location.hash)
 if (legacy) location.replace(pathOf({ lang: page.lang, legal: legacy }))
 
+// The 404 names the address that led nowhere, as the app's does.
+const lostPath = document.querySelector('[data-lost-path]')
+if (lostPath) lostPath.textContent = location.pathname
+
 const demos = mountDemos(page)
 mountComparison(page)
 const setTheme = themeSetter(page, demos.tell)

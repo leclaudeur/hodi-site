@@ -9,12 +9,12 @@ import { SITE_URL } from '../lib/site.ts'
 interface Props {
   lang: Lang
   legal: LegalId | null
-  // The page nginx shows for an unknown address: the landing, kept out of search engines.
+  // The page nginx shows for an unknown address: the app's 404, kept out of search engines.
   notFound?: boolean
 }
 
 const { lang, legal, notFound = false } = Astro.props
-const { body, legalTitle } = renderPage(lang, legal)
+const { body, legalTitle } = renderPage(lang, legal, notFound)
 
 const HOME = {
   fr: {
@@ -42,8 +42,14 @@ const LEGAL = {
   }
 }
 
-const title = legal ? `${legalTitle} · Hodi` : HOME[lang].title
-const description = legal ? LEGAL[lang][legal] : HOME[lang].description
+const LOST = {
+  fr: { title: 'Page introuvable · Hodi', description: 'Cette page n’existe pas, ou plus.' },
+  en: { title: 'Page not found · Hodi', description: 'This page doesn’t exist.' }
+}
+
+const home = notFound ? LOST[lang] : HOME[lang]
+const title = legal ? `${legalTitle} · Hodi` : home.title
+const description = legal ? LEGAL[lang][legal] : home.description
 const url = (to: Lang) => SITE_URL + pathOf({ lang: to, legal })
 const other: Lang = lang === 'fr' ? 'en' : 'fr'
 const ogImage = `${SITE_URL}/share-${lang}.png`
@@ -97,7 +103,12 @@ const legalPaths = LEGAL_IDS.map(id => pathOf({ lang, legal: id }))
       })()
     </script>
   </head>
-  <body class={legal ? 'hl-body legal-mode' : 'hl-body'} data-signup="open" data-cta="open" set:html={body} />
+  <body
+    class:list={['hl-body', { 'legal-mode': legal, 'lost-mode': notFound }]}
+    data-signup="open"
+    data-cta="open"
+    set:html={body}
+  />
   <script>
     import '../scripts/main.ts'
   </script>
