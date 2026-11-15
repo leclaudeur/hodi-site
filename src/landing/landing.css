@@ -259,7 +259,8 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 .badge svg { width: 14px; height: 14px; color: var(--text-3); }
 
 /* Blobs of topic colour, each on its own slow orbit. */
-.blobs { position: absolute; inset: -6% -12% auto; height: 820px; pointer-events: none; opacity: var(--glow); -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent); mask-image: linear-gradient(to bottom, #000 50%, transparent); }
+/* As wide as the screen at least: on a wide screen the colours would stop short of its edges, cut by the mask. */
+.blobs { position: absolute; top: -6%; left: 50%; width: max(124%, 100vw); translate: -50% 0; height: 820px; pointer-events: none; opacity: var(--glow); -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent); mask-image: linear-gradient(to bottom, #000 50%, transparent); }
 /* A gradient that fades over a wider disc instead of a blur filter: some graphics cards cut a blurred layer at its tile
    edges, which showed as straight lines through the colours. */
 .blobs i { position: absolute; width: calc(var(--s) + 140px); height: calc(var(--s) + 140px); margin: -70px 0 0 -70px; left: var(--x); top: var(--y); border-radius: 50%; background: radial-gradient(closest-side, var(--c), color-mix(in srgb, var(--c) 80%, transparent) 22%, color-mix(in srgb, var(--c) 50%, transparent) 45%, color-mix(in srgb, var(--c) 22%, transparent) 66%, color-mix(in srgb, var(--c) 7%, transparent) 84%, transparent); will-change: transform; animation: orbit var(--d) ease-in-out infinite alternate; }
@@ -526,8 +527,8 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 @media (max-width: 900px) { .faq-wrap { grid-template-columns: minmax(0, 1fr); } .faq-wrap .sec-head { position: static; } }
 
 /* ---- Join: the app's field and button, the same height side by side. ---- */
-.final { position: relative; overflow: hidden; text-align: center; }
-.final .blobs { inset: auto -12% -40%; height: 700px; -webkit-mask-image: none; mask-image: none; }
+.final { position: relative; overflow-x: visible; overflow-y: clip; text-align: center; }
+.final .blobs { top: auto; bottom: -40%; height: 700px; -webkit-mask-image: none; mask-image: none; }
 .final > :not(.blobs) { position: relative; }
 .final .title { font-size: clamp(52px, 7vw, 100px); }
 .final p.lead { margin: 18px auto 0; max-width: 32em; color: var(--text-2); font-size: clamp(16px, 1.6vw, 18px); }
