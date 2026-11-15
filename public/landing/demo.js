@@ -140,11 +140,15 @@
         // A window kept open by the patch stays as it is.
         if (d.matches(':modal')) return
         d.removeAttribute('open')
+        // Opening a window focuses its first button, and a focus scrolls the landing back to the demo: an inert
+        // window opens without taking the focus.
+        d.inert = true
         try {
           d.showModal()
         } catch {
           d.setAttribute('open', '')
         }
+        d.inert = false
       })
       // The browser's own hover tooltips are not part of a demo.
       body.querySelectorAll('[title]').forEach(e => e.removeAttribute('title'))
