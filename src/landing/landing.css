@@ -822,9 +822,10 @@ footer .end { margin-left: auto; }
 .pw-eye svg { width: 16px; height: 16px; }
 .pin-row { position: relative; display: block; width: 100%; cursor: text; }
 .pin-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; border: 0; font-size: 16px; caret-color: transparent; }
-/* As the app's code boxes: 44 × 60, a wider gap between the two groups of four, the same shape when they narrow. */
-.pin-boxes { display: grid; grid-template-columns: repeat(4, minmax(0, 44px)) 2px repeat(4, minmax(0, 44px)); justify-content: center; gap: 8px; }
-.pin-boxes .pin { display: grid; place-items: center; aspect-ratio: 44 / 60; border: 1px solid var(--border); border-radius: 14px; background: var(--control); color: var(--text); font: 500 22px var(--font-mono); }
+/* As the app's code fields (ui/PinField): eight boxes of 32 × 44 in two groups at the edges of a 360 px field, a dash between. */
+.pin-boxes { display: grid; grid-template-columns: repeat(4, 32px) minmax(12px, 1fr) repeat(4, 32px); align-items: center; gap: 6px; max-width: 360px; margin-inline: auto; }
+.pin-boxes::before { content: ""; grid-row: 1; grid-column: 5; justify-self: center; width: 10px; height: 2px; border-radius: 1px; background: var(--text-3); }
+.pin-boxes .pin { display: grid; place-items: center; aspect-ratio: 44 / 60; border: 1px solid var(--border); border-radius: 10px; background: var(--control); color: var(--text); font: 500 16px var(--font-mono); }
 .pin-boxes .pin:nth-child(5) { grid-column: 6; }
 .pin-row:focus-within .pin.next { border-color: var(--text-3); }
 .pin-row.bad .pin { border-color: var(--danger); }
