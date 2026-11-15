@@ -185,8 +185,10 @@ i[data-lucide], svg.lucide { flex-shrink: 0; }
 
 /* Soft colour behind a block, as the hero's: a few topic colours, blurred, drifting slowly. */
 .hl-body { --g1: var(--topic-sport); --g2: var(--topic-culture); --g3: var(--topic-monde); --g4: var(--topic-belgique); --g5: var(--topic-tech); }
-.glow { position: absolute; pointer-events: none; opacity: var(--glow); filter: blur(60px) saturate(1.15); }
-.glow.drift { animation: drift 24s ease-in-out infinite alternate; }
+/* No blur filter on these large boxes: a radial gradient is already soft, and a blurred layer this big makes scrolling
+   stutter and can show a hard edge where the browser stops drawing it. */
+.glow { position: absolute; pointer-events: none; opacity: var(--glow); }
+.glow.drift { animation: drift 24s ease-in-out infinite alternate; will-change: transform; }
 @keyframes drift { 0% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); } 50% { transform: translate3d(3%, -4%, 0) rotate(8deg) scale(1.06); } 100% { transform: translate3d(-4%, 3%, 0) rotate(-6deg) scale(0.98); } }
 @media (prefers-reduced-motion: reduce) { .glow.drift { animation: none; } }
 
@@ -257,8 +259,8 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 .badge svg { width: 14px; height: 14px; color: var(--text-3); }
 
 /* Blobs of topic colour, each on its own slow orbit. */
-.blobs { position: absolute; inset: -6% -12% auto; height: 820px; pointer-events: none; opacity: var(--glow); filter: blur(70px) saturate(1.15); -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent); mask-image: linear-gradient(to bottom, #000 50%, transparent); }
-.blobs i { position: absolute; width: var(--s); height: var(--s); left: var(--x); top: var(--y); border-radius: 50%; background: radial-gradient(closest-side, var(--c), transparent); animation: orbit var(--d) ease-in-out infinite alternate; }
+.blobs { position: absolute; inset: -6% -12% auto; height: 820px; pointer-events: none; opacity: var(--glow); -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent); mask-image: linear-gradient(to bottom, #000 50%, transparent); }
+.blobs i { position: absolute; width: var(--s); height: var(--s); left: var(--x); top: var(--y); border-radius: 50%; background: radial-gradient(closest-side, var(--c), transparent); filter: blur(70px) saturate(1.15); will-change: transform; animation: orbit var(--d) ease-in-out infinite alternate; }
 .blobs i:nth-child(1) { --c: var(--g1); --s: 520px; --x: 6%; --y: 6%; --d: 17s; }
 .blobs i:nth-child(2) { --c: var(--g2); --s: 440px; --x: 34%; --y: -8%; --d: 21s; animation-delay: -6s; }
 .blobs i:nth-child(3) { --c: var(--g3); --s: 560px; --x: 58%; --y: 4%; --d: 19s; animation-delay: -3s; }
@@ -318,13 +320,13 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 /* Partages: whose screen the demo shows. */
 .views { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--border); border-radius: 999px; background: var(--card); }
 /* The avatar sits 3px from the pill's edge on every side, and the label's line is its own height, so both are in the middle. */
-.views button { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 3px; border: 0; border-radius: 999px; background: transparent; color: var(--text-3); font: 500 14px/1 var(--font-sans, inherit); cursor: pointer; transition: background var(--duration) var(--ease), color var(--duration) var(--ease); }
+.views button { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 3px; border: 0; border-radius: 999px; background: transparent; color: var(--text-3); font: 500 13px/1 var(--font-body); cursor: pointer; transition: background var(--duration) var(--ease), color var(--duration) var(--ease); }
 /* The screen shown reads like the app's selected chip: a light pill with dark text. */
 .views button.on { background: var(--text); color: var(--bg); }
 .f-demo:has(.demo-shield) .views button { cursor: default; }
 .views button:not(.on) .av { opacity: .6; }
 /* Same avatar as the app: a ring, a thin gap, then the tinted face with the display initial. */
-.views .av { display: grid; place-items: center; box-sizing: border-box; width: 30px; height: 30px; padding: 2px; border-radius: 50%; border: 2px solid var(--topic); background: var(--topic-surface) content-box; color: var(--topic); font: 15px/1 var(--font-display); transition: opacity var(--duration) var(--ease); }
+.views .av { display: grid; place-items: center; box-sizing: border-box; width: 30px; height: 30px; padding: 2px; border-radius: 50%; border: 2px solid var(--topic); background: var(--topic-surface) content-box; color: var(--topic); font: 13px/1 var(--font-display); transition: opacity var(--duration) var(--ease); }
 /* Bebas capitals sit high in their line, as in the app's avatars: cut to the capital's height where the browser can. */
 .views .av .ini { padding-top: 0.12em; }
 @supports (text-box: trim-both cap alphabetic) { .views .av .ini { padding-top: 0; text-box: trim-both cap alphabetic; } }
@@ -358,7 +360,7 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 /* ---- Features: one per row, room around each. ---- */
 .feature { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; padding-block: clamp(64px, 9vw, 112px); }
 .feature.flip .f-copy { order: 2; }
-.feature .glow { position: absolute; z-index: 0; width: 640px; height: 640px; top: 50%; margin-top: -320px; background: radial-gradient(closest-side, var(--topic), transparent); opacity: calc(var(--glow) * 0.45); filter: blur(40px); pointer-events: none; }
+.feature .glow { position: absolute; z-index: 0; width: 640px; height: 640px; top: 50%; margin-top: -320px; background: radial-gradient(closest-side, var(--topic), transparent); opacity: calc(var(--glow) * 0.45); pointer-events: none; }
 .feature:not(.flip) .glow { right: -120px; }
 .feature.flip .glow { left: -120px; }
 .f-copy { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 18px; max-width: 480px; }
@@ -400,7 +402,7 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 .net svg { width: 17px; height: 17px; color: var(--text-3); }
 
 /* Reader: the site under, Hodi over it, a handle between. Each label lives in its own layer, so the slide hides it. */
-.ba { position: relative; touch-action: pan-y; }
+.ba { position: relative; touch-action: pan-y; -webkit-user-select: none; user-select: none; }
 .ba .site-layer, .ba .hodi-layer { position: absolute; inset: 0; overflow: hidden; isolation: isolate; }
 .ba .hodi-layer { clip-path: inset(0 0 0 var(--cut, 50%)); }
 .ba .tag { position: absolute; bottom: 16px; z-index: 2; height: 26px; padding: 0 11px; border-radius: 999px; display: inline-flex; align-items: center; font: 500 10px/1 var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; pointer-events: none; }
@@ -459,7 +461,7 @@ main { padding-top: calc(64px + env(safe-area-inset-top, 0px)); }
 
 /* ---- AI: violet, the colour of a click that spends credits. ---- */
 .ai-zone { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: center; background: color-mix(in srgb, var(--ai-surface) 55%, var(--bg)); }
-.ai-zone .glow { position: absolute; inset: -20% auto auto -10%; width: 760px; height: 600px; background: radial-gradient(closest-side, var(--ai), transparent); opacity: calc(var(--glow) * 0.6); filter: blur(60px); pointer-events: none; animation: orbit 22s ease-in-out infinite alternate; }
+.ai-zone .glow { position: absolute; inset: -20% auto auto -10%; width: 760px; height: 600px; background: radial-gradient(closest-side, var(--ai), transparent); opacity: calc(var(--glow) * 0.6); pointer-events: none; will-change: transform; animation: orbit 22s ease-in-out infinite alternate; }
 .ai-zone .glow.b { inset: auto -10% -30% auto; width: 600px; height: 520px; animation-duration: 26s; animation-delay: -9s; }
 .ai-zone > :not(.glow) { position: relative; }
 .ai-zone .title { color: var(--ai-text); font-size: clamp(48px, 5.6vw, 76px); }

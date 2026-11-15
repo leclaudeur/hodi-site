@@ -106,7 +106,7 @@ const legalPaths = LEGAL_IDS.map(id => pathOf({ lang, legal: id }))
   <body
     class:list={['hl-body', { 'legal-mode': legal, 'lost-mode': notFound }]}
     data-signup="open"
-    data-cta="open"
+    data-cta="none"
     set:html={body}
   />
   <script>

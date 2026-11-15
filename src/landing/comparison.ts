@@ -33,42 +33,29 @@ export const mountComparison = (page: Page) => {
     ba.style.setProperty('--cut', pct + '%')
     handle.setAttribute('aria-valuenow', String(Math.round(pct)))
   }
-  let dragging = false
-  const fromEvent = (e: PointerEvent) => {
+  // The handle sets the line where the pointer is; anywhere else, a sideways swipe moves it by as much as the pointer
+  // moved, and a vertical one still scrolls the page (touch-action: pan-y), which cancels it. Leaving the phone
+  // ends either: no capture, so a button let go outside never leaves a drag running.
+  let drag: { id: number; x: number; from: number; handle: boolean } | null = null
+  const move = (e: PointerEvent) => {
+    if (!drag || e.pointerId !== drag.id) return
     const r = ba.getBoundingClientRect()
-    setCut(((e.clientX - r.left) / r.width) * 100)
+    setCut(drag.handle ? ((e.clientX - r.left) / r.width) * 100 : drag.from + ((e.clientX - drag.x) / r.width) * 100)
   }
-  handle.addEventListener(
-    'pointerdown',
-    e => {
-      dragging = true
-      handle.setPointerCapture(e.pointerId)
-      fromEvent(e)
-    },
-    { signal }
-  )
-  handle.addEventListener('pointermove', e => dragging && fromEvent(e), { signal })
-  handle.addEventListener('pointerup', () => (dragging = false), { signal })
-  // Anywhere else on the comparison, a sideways swipe moves the line by as much as the finger moved; a vertical one
-  // still scrolls the page (touch-action: pan-y), which cancels the swipe.
-  let swipe: { id: number; x: number; from: number } | null = null
   ba.addEventListener(
     'pointerdown',
     e => {
-      if ((e.target as Element).closest('#ba-handle')) return
-      swipe = { id: e.pointerId, x: e.clientX, from: Number(handle.getAttribute('aria-valuenow')) }
+      // A mouse press would start a text selection in the site's page.
+      if (e.pointerType === 'mouse') e.preventDefault()
+      const onHandle = (e.target as Element).closest('#ba-handle') !== null
+      drag = { id: e.pointerId, x: e.clientX, from: Number(handle.getAttribute('aria-valuenow')), handle: onHandle }
+      if (onHandle) move(e)
     },
     { signal }
   )
-  ba.addEventListener(
-    'pointermove',
-    e => {
-      if (!swipe || e.pointerId !== swipe.id) return
-      setCut(swipe.from + ((e.clientX - swipe.x) / ba.getBoundingClientRect().width) * 100)
-    },
-    { signal }
-  )
-  for (const type of ['pointerup', 'pointercancel']) ba.addEventListener(type, () => (swipe = null), { signal })
+  ba.addEventListener('pointermove', move, { signal })
+  for (const type of ['pointerup', 'pointercancel', 'pointerleave'])
+    ba.addEventListener(type, () => (drag = null), { signal })
   handle.addEventListener(
     'keydown',
     e => {

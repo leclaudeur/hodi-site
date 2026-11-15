@@ -313,8 +313,7 @@
   // the page's own text, and narrowed so it still fits the screen.
   const sizeBubble = bubble => {
     const k = parseFloat(getComputedStyle(root).getPropertyValue('--demo-k')) || 1
-    // A step with little room can cap the scale (bubble.dataset.zoom), a little below the demo's own size if it must.
-    const z = Math.min(innerWidth < 600 && k < 1 ? 1 / k : 1, parseFloat(bubble.dataset.zoom) || Infinity)
+    const z = innerWidth < 600 && k < 1 ? 1 / k : 1
     // A transform rather than CSS zoom: every browser measures it the same way, and its position stays in page pixels.
     bubble.style.transformOrigin = '0 0'
     bubble.style.scale = String(z)
@@ -549,7 +548,7 @@
     bubble.style.visibility = 'hidden'
     sizeBubble(bubble)
     layer.append(bubble)
-    let tall = bubble.getBoundingClientRect().height
+    const tall = bubble.getBoundingClientRect().height
     bubble.remove()
     let hole = holeOf(target)
     const room = h => h.top + h.height + GAP + tall + MARGIN < innerHeight || h.top - GAP - tall > MARGIN
@@ -557,16 +556,8 @@
       if (target.matches('dialog')) {
         target.style.margin = `${MARGIN}px auto auto`
         hole = holeOf(target)
-        // A window to press in stays whole: the bubble's text gets a little smaller instead, as far as needed.
-        for (let z = sizeBubble(bubble).z; !room(hole) && z > 0.8; ) {
-          z = Math.max(z - 0.05, 0.8)
-          bubble.dataset.zoom = String(z)
-          sizeBubble(bubble)
-          layer.append(bubble)
-          tall = bubble.getBoundingClientRect().height
-          bubble.remove()
-        }
-        // Still too tall for the screen: the window's top (its title) slides out of view rather than its buttons.
+        // Too tall for the screen: the window's top (its title) slides out of view rather than its buttons. The
+        // bubble keeps the size of every other step.
         if (!room(hole)) {
           const over = hole.top + hole.height + GAP + tall + MARGIN + 1 - innerHeight
           target.style.margin = `${MARGIN - over}px auto auto`
@@ -603,7 +594,8 @@
       seen.add(at.target)
       const target = document.querySelector(`[data-t="${at.target}"]`)
       if (!target) return
-      const r = target.getBoundingClientRect()
+      // A step can put its dot on a part of its target (the first of a row that runs past the screen's edge).
+      const r = ((at.spotIn && target.querySelector(at.spotIn)) || target).getBoundingClientRect()
       if (!r.width) return
       // A button gets its dot on its corner, like a badge; a larger area on the middle of its top edge, clear of
       // its content. A step can name its own place. The dot stays on that place as it scrolls, and goes with it.
