@@ -55,7 +55,7 @@ describe('the built site', { skip: !existsSync(new URL('../dist/index.html', imp
     for (const [file, text] of [
       ['404.html', 'Cette page n’existe pas, ou plus'],
       ['en/404.html', 'This page doesn’t exist']
-    ]) {
+    ] as const) {
       const html = page(file)
       assert.match(html, /class="hl-body lost-mode"/, file)
       assert.ok(html.includes('<meta name="robots" content="noindex">'), file)
