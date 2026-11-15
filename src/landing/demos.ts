@@ -2,7 +2,7 @@ import type { Page } from './page.ts'
 
 type BoxOf = (source: MessageEventSource | null) => HTMLElement | undefined
 
-// Each demo is the app at its own size, scaled to the box it sits in. They live in Village's assets, each in a frame
+// Each demo is the app at its own size, scaled to the box it sits in. They live in Hodi's assets, each in a frame
 // of its own with no access to Hodi's page.
 const fitDemos = (page: Page) => {
   const { $$, observers, signal } = page

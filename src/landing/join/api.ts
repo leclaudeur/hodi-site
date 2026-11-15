@@ -1,6 +1,6 @@
 import { type Challenge, solveChallenge } from './altcha.ts'
 
-// Village's public routes, on the site's own address: nginx sends /api/ on to Hodi (nginx.conf).
+// Hodi's sign-up routes, on the site's own address: nginx sends /api/ on to Hodi (nginx.conf).
 const BASE = '/api/public/plugins/village'
 
 export type Signup = 'invite' | 'open' | 'waitlist' | 'full'
