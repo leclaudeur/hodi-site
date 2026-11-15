@@ -822,8 +822,9 @@ footer .end { margin-left: auto; }
 .pw-eye svg { width: 16px; height: 16px; }
 .pin-row { position: relative; display: block; width: 100%; cursor: text; }
 .pin-input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; border: 0; font-size: 16px; caret-color: transparent; }
-.pin-boxes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) 4px repeat(4, minmax(0, 1fr)); gap: 6px; }
-.pin-boxes .pin { display: grid; place-items: center; aspect-ratio: 1; border: 1px solid var(--border); border-radius: 12px; background: var(--control); color: var(--text); font: 500 17px var(--font-mono); }
+/* As the app's code boxes: 44 × 60, a wider gap between the two groups of four, the same shape when they narrow. */
+.pin-boxes { display: grid; grid-template-columns: repeat(4, minmax(0, 44px)) 2px repeat(4, minmax(0, 44px)); justify-content: center; gap: 8px; }
+.pin-boxes .pin { display: grid; place-items: center; aspect-ratio: 44 / 60; border: 1px solid var(--border); border-radius: 14px; background: var(--control); color: var(--text); font: 500 22px var(--font-mono); }
 .pin-boxes .pin:nth-child(5) { grid-column: 6; }
 .pin-row:focus-within .pin.next { border-color: var(--text-3); }
 .pin-row.bad .pin { border-color: var(--danger); }
@@ -833,7 +834,6 @@ footer .end { margin-left: auto; }
   .final .join-form.line { grid-template-columns: minmax(0, 1fr); }
   .final .join-form.line > .btn { grid-row: 99; width: 100%; margin-top: 18px; }
   .join-card { padding: 6px 14px; }
-  .pin-boxes { gap: 5px; }
 }
 
 /* ---- The pre-release mark beside the logo: as « SDK » on the SDK docs, its capitals' top on the h's top. */
