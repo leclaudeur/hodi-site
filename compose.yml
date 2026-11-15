@@ -4,6 +4,7 @@
 services:
   site:
     image: ghcr.io/leclaudeur/hodi-site:latest
+    container_name: hodi-site
     restart: unless-stopped
     environment:
       HODI_URL: '${HODI_URL:-http://app:3000}'
