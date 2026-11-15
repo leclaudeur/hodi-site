@@ -3,6 +3,8 @@
   const D = window.DEMO
   const root = document.documentElement
   let demoK = ''
+  // The start button is sized by the landing's scale: it only animates a press, never that scale arriving or changing.
+  const settleIntro = intro => requestAnimationFrame(() => requestAnimationFrame(() => intro.classList.add('settled')))
   const params = new URLSearchParams(location.search)
   let current = null
   // The last screen without a window open, where Escape goes back to.
@@ -506,6 +508,8 @@
       start()
     })
     layer.append(middle)
+    // Until the landing gives its scale, the button waits unseen: it would show at the wrong size, then jump.
+    if (demoK || window.parent === window) settleIntro(middle)
   }
 
   // A step as the app draws it (app/Tour.tsx): the target lit, the rest dimmed, a bubble with its counter.
@@ -830,7 +834,10 @@
     if (m.theme) setTheme(m.theme)
     if (m.scale) {
       demoK = m.scale
+      const intros = [...document.querySelectorAll('.demo-intro')]
+      intros.forEach(intro => intro.classList.remove('settled'))
       root.style.setProperty('--demo-k', m.scale)
+      intros.forEach(settleIntro)
     }
     if (m.go) apply(m.go)
     if (m.play) play()
