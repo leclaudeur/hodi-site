@@ -311,11 +311,11 @@
   const GAP = 12
   const MARGIN = 16
   const EDGE = 3
-  // A phone demo is shown smaller than life on the landing: its bubble is scaled back so its text reads at the size of
-  // the page's own text, and narrowed so it still fits the screen.
+  // A demo is shown smaller than life on the landing: its bubble is scaled back so its text reads at the size of the
+  // page's own text, and narrowed so it still fits the screen. A short tablet window keeps room for the dialog it shows.
   const sizeBubble = bubble => {
     const k = parseFloat(getComputedStyle(root).getPropertyValue('--demo-k')) || 1
-    const z = innerWidth < 600 && k < 1 ? 1 / k : 1
+    const z = k < 1 ? Math.min(1 / k, innerWidth < 600 ? Infinity : 1.35) : 1
     // A transform rather than CSS zoom: every browser measures it the same way, and its position stays in page pixels.
     bubble.style.transformOrigin = '0 0'
     bubble.style.scale = String(z)
