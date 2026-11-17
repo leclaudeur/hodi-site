@@ -1,5 +1,6 @@
 import { mountCopy, mountFaq, mountMenus, mountScroll, themeSetter } from '../landing/chrome.ts'
 import { mountComparison } from '../landing/comparison.ts'
+import { mountConsent } from '../landing/consent.ts'
 import { mountDemos } from '../landing/demos.ts'
 import { mountJoin } from '../landing/join/index.ts'
 import { LANG_KEY, type Page, pageOf, write } from '../landing/page.ts'
@@ -57,6 +58,7 @@ mountFaq(page)
 mountLegalTree(page)
 mountLanguage(page)
 mountJoin(page)
+mountConsent(page)
 // A link of the menu sheet closes it on the way.
 page.$('#sheet').addEventListener('click', e => (e.target as Element).closest('a') && closeSheet(), {
   signal: off.signal

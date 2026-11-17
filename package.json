@@ -25,7 +25,8 @@
     "@zxcvbn-ts/language-en": "4.1.1",
     "@zxcvbn-ts/language-fr": "4.1.2",
     "astro": "7.4.11",
-    "linkedom": "0.18.12"
+    "linkedom": "0.18.12",
+    "vanilla-cookieconsent": "3.3.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.12",
