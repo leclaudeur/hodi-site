@@ -5,8 +5,8 @@ const FR = {
   kicker: 'Rejoindre',
   steps: {
     open: [
-      'Créer un foyer',
-      'Commence avec ton e-mail : un code y arrive pour créer ton foyer. Invité ? Le lien de ton e-mail t’attend.'
+      'Créer un compte',
+      'Commence avec ton e-mail : un code y arrive pour créer ton compte. Invité ? Le lien de ton e-mail t’attend.'
     ],
     code: [
       'Ton code',
@@ -16,18 +16,12 @@ const FR = {
       'Ton compte',
       'Tu te connecteras avec {email} et ce mot de passe.<br>Choisis-en un d’au moins 8 caractères.'
     ],
-    household: [
-      'Ton foyer',
-      'Un prénom pour ton profil, et un nom pour le foyer : c’est lui que verront les personnes que tu inviteras.'
-    ],
-    done: [
-      'Ton foyer est prêt',
-      'Connecte-toi dans Hodi avec {email} et ton mot de passe. Tu pourras ensuite inviter les autres membres du foyer.'
-    ],
+    name: ['Ton prénom', 'C’est le nom de ton profil dans Hodi. Tu pourras le changer ensuite.'],
+    done: ['Ton compte est prêt', 'Connecte-toi dans Hodi avec {email} et ton mot de passe.'],
     wait: ['Liste d’attente', 'Laisse un e-mail : on te prévient dès qu’une place se libère.'],
     invite: [
       'Sur invitation',
-      'Les foyers y entrent sur invitation de la personne qui l’héberge. Tu peux aussi installer Hodi chez toi, c’est gratuit.'
+      'On y entre sur invitation de la personne qui l’héberge. Tu peux aussi installer Hodi chez toi, c’est gratuit.'
     ],
     closed: [
       'Serveur complet',
@@ -47,7 +41,7 @@ const FR = {
     invalid_altcha: 'La vérification n’a pas abouti. Réessaie.',
     signup_closed: 'Ce serveur ne prend plus d’inscription pour l’instant.',
     waitlist_closed: 'Ce serveur ne prend plus d’inscription pour l’instant.',
-    household_limit: 'Le serveur vient d’atteindre son nombre de foyers.',
+    account_limit: 'Le serveur vient d’atteindre son nombre de comptes.',
     mail_unavailable: 'Ce serveur ne peut pas envoyer d’e-mail pour l’instant. Réessaie plus tard.',
     email_taken: 'Cette adresse a déjà un compte : connecte-toi avec elle.',
     rate: 'Trop d’essais d’un coup. Réessaie dans une minute.',
@@ -60,10 +54,9 @@ const FR = {
     code_expired: 'Les 30 minutes du code sont passées. Recommence avec ton e-mail pour en recevoir un nouveau.',
     weak_password: 'Le mot de passe doit faire au moins 8 caractères.',
     name: 'Donne ton prénom.',
-    household: 'Donne un nom à ton foyer.',
     invalid_invite: 'Cette invitation ne marche plus. Demande-en une nouvelle.',
     confirm_expired: 'Ce lien de confirmation a expiré. Inscris-toi à nouveau.',
-    failed: 'Le foyer n’a pas pu être créé. Réessaie dans un instant.'
+    failed: 'Le compte n’a pas pu être créé. Réessaie dans un instant.'
   },
   password: {
     levels: ['Trop court', 'Faible', 'Moyen', 'Solide', 'Excellent'],
@@ -88,23 +81,17 @@ const EN: JoinTexts = {
   kicker: 'Join',
   steps: {
     open: [
-      'Start a household',
-      'Start with your e-mail: a code arrives there to start your household. Invited? The link in your e-mail is waiting.'
+      'Create an account',
+      'Start with your e-mail: a code arrives there to create your account. Invited? The link in your e-mail is waiting.'
     ],
     code: ['Your code', 'We sent a code to {email}. It is valid for 30 minutes: check your spam folder too.'],
     account: ['Your account', 'You will sign in with {email} and this password.<br>Pick one of at least 8 characters.'],
-    household: [
-      'Your household',
-      'A first name for your profile, and a name for the household: the people you invite will see it.'
-    ],
-    done: [
-      'Your household is ready',
-      'Sign in to Hodi with {email} and your password. You can then invite the rest of the household.'
-    ],
+    name: ['Your first name', 'It is your profile’s name in Hodi. You can change it later.'],
+    done: ['Your account is ready', 'Sign in to Hodi with {email} and your password.'],
     wait: ['Waiting list', 'Leave an e-mail: we’ll let you know as soon as a spot opens up.'],
     invite: [
       'Invitation only',
-      'Households join when the person who runs it invites them. You can also install Hodi at home, it’s free.'
+      'People join when the person who runs it invites them. You can also install Hodi at home, it’s free.'
     ],
     closed: [
       'Server full',
@@ -124,7 +111,7 @@ const EN: JoinTexts = {
     invalid_altcha: 'The check didn’t go through. Try again.',
     signup_closed: 'This server isn’t taking sign-ups right now.',
     waitlist_closed: 'This server isn’t taking sign-ups right now.',
-    household_limit: 'The server just reached its number of households.',
+    account_limit: 'The server just reached its number of accounts.',
     mail_unavailable: 'This server can’t send e-mail right now. Try again later.',
     email_taken: 'This address already has an account: sign in with it.',
     rate: 'Too many tries at once. Try again in a minute.',
@@ -137,10 +124,9 @@ const EN: JoinTexts = {
     code_expired: 'The code’s 30 minutes are over. Start again with your e-mail to get a new one.',
     weak_password: 'The password needs at least 8 characters.',
     name: 'Give your first name.',
-    household: 'Give your household a name.',
     invalid_invite: 'This invitation no longer works. Ask for a new one.',
     confirm_expired: 'This confirmation link has expired. Sign up again.',
-    failed: 'The household couldn’t be created. Try again in a moment.'
+    failed: 'The account couldn’t be created. Try again in a moment.'
   },
   password: {
     levels: ['Too short', 'Weak', 'Fair', 'Strong', 'Excellent'],
