@@ -808,7 +808,7 @@ footer .end { margin-left: auto; }
 .hl-body[data-signup="invite"] .final [data-when~="invite"],
 .hl-body[data-signup="code"] .final [data-when~="code"],
 .hl-body[data-signup="account"] .final [data-when~="account"],
-.hl-body[data-signup="household"] .final [data-when~="household"],
+.hl-body[data-signup="name"] .final [data-when~="name"],
 .hl-body[data-signup="done"] .final [data-when~="done"],
 .hl-body[data-signup="expired"] .final [data-when~="expired"] { display: flex; }
 .hl-body[data-signup="open"] .final form[data-when~="open"],
@@ -817,7 +817,7 @@ footer .end { margin-left: auto; }
 .hl-body[data-signup="invite"] .final form[data-when~="invite"],
 .hl-body[data-signup="code"] .final form[data-when~="code"],
 .hl-body[data-signup="account"] .final form[data-when~="account"],
-.hl-body[data-signup="household"] .final form[data-when~="household"],
+.hl-body[data-signup="name"] .final form[data-when~="name"],
 .hl-body[data-signup="done"] .final form[data-when~="done"],
 .hl-body[data-signup="expired"] .final form[data-when~="expired"] { display: grid; }
 .final .join-form { width: 100%; max-width: 440px; margin: 32px auto 0; column-gap: 10px; text-align: left; }

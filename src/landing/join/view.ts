@@ -2,8 +2,8 @@ import type { Page } from '../page.ts'
 import { ICON_SVG } from '../texts.ts'
 import { type ErrorKey, type JoinTexts, textsOf } from './texts.ts'
 
-// Every state of « Rejoindre »: a step of « Créer un foyer », the waiting list, or a server that takes nobody.
-export type JoinState = 'open' | 'code' | 'account' | 'household' | 'done' | 'wait' | 'invite' | 'closed' | 'expired'
+// Every state of « Rejoindre »: a step of « Créer un compte », the waiting list, or a server that takes nobody.
+export type JoinState = 'open' | 'code' | 'account' | 'name' | 'done' | 'wait' | 'invite' | 'closed' | 'expired'
 
 const escape = (text: string) =>
   text.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c] ?? c)

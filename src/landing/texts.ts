@@ -10,8 +10,8 @@ export const I18N = en as I18n
 // The join section's title and line for each state: a short title, an explanation of two lines at most.
 export const JOIN: Record<string, [string, string]> = {
   open: [
-    'Créer un foyer',
-    "Commence avec un e-mail. Tu pourras ensuite créer un foyer ou rejoindre celui qui t'a invité."
+    'Créer un compte',
+    "Commence avec ton e-mail : un code y arrive pour créer ton compte. Invité ? Le lien de ton e-mail t'attend."
   ],
   wait: ["Liste d'attente", "Laisse un e-mail : on te prévient dès qu'une place se libère."],
   closed: [
@@ -20,7 +20,7 @@ export const JOIN: Record<string, [string, string]> = {
   ],
   invite: [
     'Sur invitation',
-    "Les foyers y entrent sur invitation de la personne qui l'héberge. Tu peux aussi installer Hodi chez toi, c'est gratuit."
+    "On y entre sur invitation de la personne qui l'héberge. Tu peux aussi installer Hodi chez toi, c'est gratuit."
   ],
   expired: ['Invitation expirée', 'Le lien a plus de 7 jours ou a déjà servi. Demande une nouvelle invitation.']
 }
@@ -63,9 +63,9 @@ export const SCRIPT_EN: Record<string, string> = {
   'Le serveur ne répond pas. Réessaie dans un instant.': 'The server isn’t answering. Try again in a moment.',
   "Coche d'abord la case sur l'usage de l'e-mail.": 'Tick the box about the e-mail first.',
   'Ce lien de confirmation a expiré. Inscris-toi à nouveau.': 'This confirmation link has expired. Sign up again.',
-  'Créer un foyer': 'Start a household',
-  "Commence avec un e-mail. Tu pourras ensuite créer un foyer ou rejoindre celui qui t'a invité.":
-    'Start with an e-mail. You can then start a household or join the one that invited you.',
+  'Créer un compte': 'Create an account',
+  "Commence avec ton e-mail : un code y arrive pour créer ton compte. Invité ? Le lien de ton e-mail t'attend.":
+    'Start with your e-mail: a code arrives there to create your account. Invited? The link in your e-mail is waiting.',
   'Serveur complet': 'Server full',
   "Liste d'attente": 'Waiting list',
   "Laisse un e-mail : on te prévient dès qu'une place se libère.":
@@ -82,8 +82,8 @@ export const SCRIPT_EN: Record<string, string> = {
   "N° {n} dans la file d'attente. Un e-mail arrive dès qu'une place se libère.":
     'Number {n} on the waiting list. An e-mail comes as soon as a spot opens up.',
   'Ce serveur est sur invitation': 'This server is invitation-only',
-  "Les foyers y entrent sur invitation de la personne qui l'héberge. Tu peux aussi installer Hodi chez toi, c'est gratuit.":
-    'Households join when the person who runs it invites them. You can also install Hodi at home, it’s free.'
+  "On y entre sur invitation de la personne qui l'héberge. Tu peux aussi installer Hodi chez toi, c'est gratuit.":
+    'People join when the person who runs it invites them. You can also install Hodi at home, it’s free.'
 }
 
 export const FAQ = [
@@ -93,7 +93,7 @@ export const FAQ = [
   ],
   [
     'Qui voit ce que je lis ?',
-    "Toi seul. Les autres profils du foyer voient ce que tu leur partages. L'hébergeur voit le nom des foyers et les e-mails des comptes, jamais ce que tu lis."
+    "Toi seul. Ceux à qui tu envoies un article voient cet article. L'hébergeur voit les e-mails des comptes, jamais ce que tu lis."
   ],
   [
     "Pourquoi des articles s'ouvrent sur le site ?",
@@ -101,11 +101,11 @@ export const FAQ = [
   ],
   [
     "Et l'IA, elle coûte quoi ?",
-    "Rien si le foyer n'en met pas. Avec une clé, chaque bouton violet est un appel payé au fournisseur choisi, jamais automatique, avec des plafonds par jour."
+    "Rien si tu n'en mets pas. Avec ta clé, chaque bouton violet est un appel payé au fournisseur choisi, jamais automatique, avec des plafonds par jour."
   ],
   [
     'Et les ados ?',
-    "Ils ont leur profil Ado, créé par un parent : les sources que leurs parents ont choisies, et les heures où Hodi s'ouvre. Ils peuvent demander une nouvelle source, leurs parents décident."
+    "Ils ont leur compte Ado, créé par un parent : les sources que leurs parents ont choisies, et les heures où Hodi s'ouvre. Ils peuvent demander une nouvelle source, leurs parents décident."
   ],
   [
     'Et si le serveur est complet ?',

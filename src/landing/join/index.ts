@@ -16,20 +16,13 @@ const BACK_TO: Record<string, JoinState> = {
   invalid_invite: 'expired'
 }
 
-// The household's two fields: each one says under it what is missing.
-const householdFields = (page: Page, view: JoinView) => {
+// The first name, said under its field when it is missing.
+const readName = (page: Page, view: JoinView) => {
   const { $ } = page
-  const read = (name: 'name' | 'household') => {
-    const input = $<HTMLInputElement>(`#join-household input[name="${name}"]`)
-    const value = input.value.trim()
-    sayUnder($(`#join-${name}-error`), value ? null : view.errorText(name), input.closest('.field'))
-    return value
-  }
-  return () => {
-    const name = read('name')
-    const household = read('household')
-    return name && household ? { name, household } : null
-  }
+  const input = $<HTMLInputElement>('#join-name input[name="name"]')
+  const name = input.value.trim()
+  sayUnder($('#join-name-error'), name ? null : view.errorText('name'), input.closest('.field'))
+  return name
 }
 
 type Steps = ReturnType<typeof mountSteps>
@@ -84,16 +77,15 @@ const mountForms = (page: Page, view: JoinView, signup: Signup, show: (state: Jo
     }
   })
 
-  const readHousehold = householdFields(page, view)
-  onSubmit(page, '#join-household', async () => {
-    const names = readHousehold()
-    if (!names) return
+  onSubmit(page, '#join-name', async () => {
+    const name = readName(page, view)
+    if (!name) return
     const proof = signup.invite === null ? { code: signup.code } : { invite: signup.invite }
     try {
       await send('/signup/finish', {
         email: view.email(),
         ...proof,
-        ...names,
+        name,
         password: signup.password,
         consent: true,
         lang
@@ -160,7 +152,7 @@ export const mountJoin = (page: Page) => {
   const steps = mountForms(page, view, signup, show)
   void loadInfo().then(async info => {
     const state = stateOfInfo(info)
-    // The header's button follows what the server offers: « Créer mon foyer », « File d'attente », or nothing.
+    // The header's button follows what the server offers: « Créer mon compte », « File d'attente », or nothing.
     page.body.dataset.cta = state
     if (await followEmailLink(view, signup, steps)) return
     show(state)

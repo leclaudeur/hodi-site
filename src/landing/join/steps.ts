@@ -41,12 +41,12 @@ const codeKey = ({ code, left }: Refused) => {
 
 const codeOf = (failure: unknown) => (failure instanceof Refused ? failure.code : 'network')
 
-// The steps of « Créer un foyer » after the address: the code, the password and the age, then the household.
+// The steps of « Créer un compte » after the address: the code, the password and the age, then the first name.
 export const mountSteps = (page: Page, view: JoinView, signup: Signup) => {
   const { $, signal } = page
   const invited = () => signup.invite !== null
-  const step = (state: 'code' | 'account' | 'household') => {
-    const at = { code: '2 / 4', account: invited() ? '1 / 2' : '3 / 4', household: invited() ? '2 / 2' : '4 / 4' }
+  const step = (state: 'code' | 'account' | 'name') => {
+    const at = { code: '2 / 4', account: invited() ? '1 / 2' : '3 / 4', name: invited() ? '2 / 2' : '4 / 4' }
     view.show(state, at[state])
     if (state === 'account') void loadEstimator().then(() => drawPassword())
     requestAnimationFrame(() => $<HTMLInputElement>(`#join-${state} input`).focus({ preventScroll: true }))
@@ -106,7 +106,7 @@ export const mountSteps = (page: Page, view: JoinView, signup: Signup) => {
     sayUnder($('#join-account-consent'), unticked ? view.errorText('age') : null)
     if (short || unticked) return
     signup.password = password
-    step('household')
+    step('name')
   })
 
   return { step, sayCode, pins }
